@@ -18,7 +18,9 @@ def crawl(url):
         if r.content in history: # check history to avoid visiting more than once
             return # if already visited before, return
         history.append(r.content) # append request content to history
-        urlFile.write(url + "\n") # write URL into URL.txt
+        if index != 1: # if current URL is the root
+            urlFile.write("\n") # do NOT write new line
+        urlFile.write(url) # write URL into URL.txt
 
         soup = BS(r.content, "html.parser") # parse request content as HTML
 
