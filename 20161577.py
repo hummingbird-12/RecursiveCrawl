@@ -2,7 +2,7 @@ import requests as rq               # import requests module
 from bs4 import BeautifulSoup as BS # import BeautifulSoup4 module
 
 history = [] # list used to save request history
-prefix = "http://cspro.sogang.ac.kr/~gr120170213" # prefix for URLs
+prefix = "http://cspro.sogang.ac.kr/~gr120170213/" # prefix for URLs
 index = 1 # crawl output file index
 
 urlFile = open("URL.txt", "w") # file to write visited URLs
@@ -20,6 +20,8 @@ def crawl(url):
         history.append(r.content) # append request content to history
         if index != 1: # if current URL is the root
             urlFile.write("\n") # do NOT write new line
+        if url[-5:] != ".html": # check if html file is specified in URL
+            url += "index.html" # append "index.html"
         urlFile.write(url) # write URL into URL.txt
 
         soup = BS(r.content, "html.parser") # parse request content as HTML
@@ -35,7 +37,7 @@ def crawl(url):
             if link[0:7] == "http://": # if link starts with "http://"
                 crawl(link) # crawl link
             else: # if link does NOT start with "http://"
-                crawl(prefix + "/" + link) # append to prefix and crawl link
+                crawl(prefix + link) # append to prefix and crawl link
     except: # if any exception flag is raised, do NOT crawl
         return
 
