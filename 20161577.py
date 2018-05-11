@@ -1,6 +1,5 @@
 import requests as rq
 from bs4 import BeautifulSoup as BS
-import sys
 
 history = []
 prefix = "http://cspro.sogang.ac.kr/~gr120170213"
