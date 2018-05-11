@@ -13,20 +13,19 @@ def crawl(url):
     try:
         r = rq.get(url)
         r.raise_for_status()
+
         if r.content in history:
             return
-        print(url)
-        urlFile.write(url + "\n")
         history.append(r.content)
+        urlFile.write(url + "\n")
+
         soup = BS(r.content, "html.parser")
-        try:
-            outputFile = open("./output/Output_{:04d}.txt".format(index), "w")
-            index += 1
-            outputFile.write(soup.text)
-            #outputFile.writelines(i.get_text() + "\n" for i in soup.find_all('p'))
-            outputFile.close()
-        except:
-            print(sys.exc_info()[0])
+
+        outputFile = open("Output_{:04d}.txt".format(index), "w")
+        index += 1
+        outputFile.write(soup.text)
+        outputFile.close()
+
         result = soup.find_all('a')
         for a in result:
             link = a.get("href")
