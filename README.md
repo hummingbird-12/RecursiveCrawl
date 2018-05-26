@@ -18,7 +18,7 @@ So, to execute this crawler, do the following:
 2. Start virtual environment with following command:
 ```
 (from the project's root directory)
-$ . /bin/activate
+$ . ./bin/activate
 ```
 3. Run python script:
 ```
